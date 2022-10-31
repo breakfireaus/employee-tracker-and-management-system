@@ -236,7 +236,7 @@ async function deleteAnEmployee() {
 }
 
 
-async function roleMenu() {
+async function theRolesMenu() {
     const response = await inquirer.prompt({
         type: "list",
         name: "action",
@@ -259,4 +259,66 @@ async function roleMenu() {
             break;
     }
 
+}
+
+function viewAllRoles() {
+    connection.query("SELECT roles.title AS Role, departments.name AS Department FROM roles LEFT JOIN departments on roles.department_id = departments.id;", function (err, res) {
+        console.table(res);
+        theRolesMenu();
+    });
+}
+
+function addARole() {
+    connection.query("SELECT * FROM departments", async function (err, res) {
+        if (err) throw err;
+        const departments = res.map(a => a.name);
+
+        const response = await inquirer.prompt([{
+            type: "list",
+            name: "department",
+            message: "Select a department the role is in?",
+            choices: departments
+        },
+        {
+            type: "input",
+            name: "role",
+            message: "What name would you like to give the new role?"
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What is the salary of the new role?"
+        }
+        ])
+
+        const index = departments.indexOf(response.department);
+
+        connection.query(`INSERT INTO roles (title, salary, department_id) VALUES ('${response.role}', '${response.salary}', '${res[index].id}');`, function (err2, res2) {
+            if (err2) throw err2;
+            console.log(`${response.role} role has been created successfully.`);
+            theRolesMenu();
+        })
+    });
+}
+
+async function deleteARole() {
+    connection.query("SELECT * FROM roles", async function (err, res) {
+        if (err) throw err;
+        const roles = res.map(a => a.title);
+
+        const response = await inquirer.prompt({
+            type: "list",
+            name: "role",
+            message: "What role do you want to delete?",
+            choices: roles
+        })
+
+        const index = roles.indexOf(response.role);
+
+        connection.query(`DELETE FROM roles WHERE id = '${res[index].id}'`, function (err2, res2) {
+            if (err2) throw err2;
+            console.log(`${response.role} role was deleted successfully.`);
+            theRolesMenu();
+        });
+    })
 }
