@@ -5,7 +5,7 @@ require("console.table");
 
 var connection = mysql.createConnection({
     host: "localhost",
-    port: 3000,
+    // port: 3000,
     user: "root",
     password: "MySQLPassword",
     database: "employee_tracker_db"
@@ -17,8 +17,9 @@ connection.connect(err => {
 })
 
 //the Program
-
+console.log('Welcome to the Employee Tracker and Management System')
 async function mainprogram(){
+    
     const response = await inquirer.prompt({
         type: 'list',
         name: 'action',
