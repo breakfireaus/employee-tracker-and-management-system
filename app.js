@@ -234,3 +234,29 @@ async function deleteAnEmployee() {
         });
     })
 }
+
+
+async function roleMenu() {
+    const response = await inquirer.prompt({
+        type: "list",
+        name: "action",
+        message: "What would you like to do?",
+        choices: ["View Roles", "Add Role", "Delete Role", "Go Back"]
+    })
+
+    switch (response.action) {
+        case "View all Roles":
+            viewAllRoles();
+            break;
+        case "Add a Role":
+            addARole();
+            break;
+        case "Delete a Role":
+            deleteARole();
+            break;
+        default:
+            mainprogram();
+            break;
+    }
+
+}
