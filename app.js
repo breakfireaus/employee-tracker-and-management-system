@@ -122,7 +122,7 @@ async function viewTheEmployeesByManager() {
         });
 }
 
-async function addTheEmployee() {
+async function addAnEmployee() {
     connection.query(
         `SELECT * FROM departments ORDER BY id`,
         async function (err, rawDepartments) {
@@ -204,7 +204,7 @@ async function addTheEmployee() {
                                 function(err4, res) {
                                     if (err4) throw err4;
                                     console.log(`${response.first_name} ${response.last_name} successfully added as an employee.`);
-                                    employeeMenu();
+                                    theEmployeeMenu();
                                 }
                             )
                         }
@@ -230,7 +230,7 @@ async function deleteAnEmployee() {
         connection.query(`DELETE FROM employees WHERE id = '${res[index].id}'`, function (err2, res2) {
             if (err2) throw err2;
             console.log(`${response.employee} was successfully deleted.`);
-            employeeMenu();
+            theEmployeeMenu();
         });
     })
 }
@@ -320,5 +320,77 @@ async function deleteARole() {
             console.log(`${response.role} role was deleted successfully.`);
             theRolesMenu();
         });
+    })
+}
+
+// department menu funtionality
+async function theDepartmentMenu() {
+    const response = await inquirer.prompt({
+        type: "list",
+        name: "action",
+        message: "What would you like to do?",
+        choices: ["View All Departments", "Add Department", "Delete Department", "Go Back to previous menu"]
+    })
+
+    switch (response.action) {
+        case "View Departments":
+            viewAllDepartments();
+            break;
+        case "Add a Department":
+            addADepartment();
+            break;
+        case "Delete a Department":
+            deleteADepartment();
+            break;
+        default:
+            mainprogram();
+            break;
+    }
+}
+
+function viewAllDepartments() {
+    connection.query("SELECT name AS Departments FROM departments;", function (err, res) {
+        console.table(res);
+        theDepartmentMenu();
+    })
+}
+
+async function addADepartment() {
+    const response = await inquirer.prompt({
+        type: "input",
+        name: "department",
+        message: "What name would you like the department to have?"
+    });
+
+    if (response.department) {
+        connection.query(`INSERT INTO departments (name) VALUES ('${response.department}');`, function (err, res) {
+            if (err) throw err;
+            console.log(`${response.department} Department successfully added`);
+            theDepartmentMenu();
+        })
+    }
+    else {
+        console.log("Please enter a name for the department");
+        addADepartment();
+    }
+}
+
+async function deleteADepartment() {
+    connection.query("SELECT name FROM departments;", async function (err, res) {
+        if (err) throw err;
+        const departments = res.map(a => a.name);
+
+        const response = await inquirer.prompt({
+            type: "list",
+            name: "department",
+            message: "What department do you want to delete?",
+            choices: departments
+        })
+
+        connection.query(`DELETE FROM departments WHERE name = '${response.department}';`, function (err2, res2) {
+            if (err2) throw err2;
+            console.log("Department successfully deleted.")
+            theDepartmentMenu();
+        })
     })
 }
