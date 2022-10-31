@@ -1,10 +1,11 @@
+// dependecies
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 require("console.table");
 
 var connection = mysql.createConnection({
     host: "localhost",
-    port: 3306,
+    port: 3000,
     user: "root",
     password: "MySQLPassword",
     database: "employee_tracker_db"
@@ -40,7 +41,7 @@ async function mainprogram(){
     }
 }
 
-// The Employee Menu
+// The Employee Menu funtionality
 async function theEmployeeMenu() {
     console.log()
     const response = await inquirer.prompt({
@@ -235,7 +236,7 @@ async function deleteAnEmployee() {
     })
 }
 
-
+//roles menu funtionality
 async function theRolesMenu() {
     const response = await inquirer.prompt({
         type: "list",
