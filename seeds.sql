@@ -22,7 +22,7 @@ VALUES  (1,  'COMPANY Director', 200000, 001),
         (12, 'IT Manager', 100000, 004),
         (13, 'Opertions Manager', 100000, 001);
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
 VALUES  (001, 'John', 'Jamiseon', 1, null),
         (002, 'Daniel', 'Fernandez', 2, 1),
         (003, 'Chol', 'Chamberlien', 3, 1),
