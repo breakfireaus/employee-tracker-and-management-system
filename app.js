@@ -128,9 +128,7 @@ async function addAnEmployee() {
       `SELECT * FROM departments ORDER BY id`,
       async function (err, rawDepartments) {
         if (err) throw err;
-        console.log(rawDepartments)
         const departments = rawDepartments.map((a) => a.department_name);
-        console.log(departments);
         const responseDep = await inquirer.prompt({
           type: "list",
           name: "department",
