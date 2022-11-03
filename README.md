@@ -1,8 +1,8 @@
-# Title
+# Employee tracker and management system
 
 ## Description
 
-
+Developers frequently are asked by non-developers to create databases that are easy to view and interact with. These interfaces are called content management systems (CMS). This interface was made to manage a company's employee database, using Node.js, Inquirer, and MySQL.
 
 ## Table of Contents
 

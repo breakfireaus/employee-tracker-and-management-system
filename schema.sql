@@ -6,7 +6,7 @@ USE employee_tracker_db;
 CREATE TABLE departments(
 id INT AUTO_INCREMENT,
 PRIMARY KEY (id),
-NAME VARCHAR(30)
+department_name VARCHAR(30)
 );
 
 CREATE TABLE roles(
