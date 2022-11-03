@@ -125,16 +125,18 @@ async function viewTheEmployeesByManager() {
 
 async function addAnEmployee() {
     connection.query(
-        `SELECT * FROM departments ORDER BY id`,
-        async function (err, rawDepartments) {
-            if (err) throw err;
-            const departments = rawDepartments.map(a => a.name);
-            const responseDep = await inquirer.prompt({
-                type: "list",
-                name: "department",
-                message: "Which department does this employee work in?",
-                choices: departments
-            })
+      `SELECT * FROM departments ORDER BY id`,
+      async function (err, rawDepartments) {
+        if (err) throw err;
+        console.log(rawDepartments)
+        const departments = rawDepartments.map((a) => a.department_name);
+        console.log(departments);
+        const responseDep = await inquirer.prompt({
+          type: "list",
+          name: "department",
+          message: "Which department does this employee work in?",
+          choices: departments,
+        });
             dIndex = departments.indexOf(responseDep.department);
             connection.query(
                 `SELECT * FROM roles WHERE department_id = ${rawDepartments[dIndex].id} ORDER BY id`,
