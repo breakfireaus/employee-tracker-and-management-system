@@ -4,8 +4,8 @@ INSERT INTO departments (id, department_name)
 VALUES  (001, 'OPERATIONS'),
         (002, 'FINANCE'),
         (003, 'MARKETING'),
-        (004, 'IT');
-        (005, 'HR')
+        (004, 'IT'),
+        (005, 'HR');
        
 INSERT INTO roles (id, title, salary, department_id)
 VALUES  (1,  'COMPANY Director', 200000, 001),
@@ -19,8 +19,8 @@ VALUES  (1,  'COMPANY Director', 200000, 001),
         (9,  'PROGRAMMING Manager', 100000, 004),
         (10, 'HR AND PEOPLE Manager', 60000, 005),
         (11, 'MARKETING Manager', 100000, 003),
-        (12, 'IT Manager', 100000, 004);
-        (13, 'Opertions Manager', 100000, 001)
+        (12, 'IT Manager', 100000, 004),
+        (13, 'Opertions Manager', 100000, 001);
 
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES  (001, 'John', 'Jamiseon', 1, null),
