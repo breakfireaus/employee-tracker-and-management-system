@@ -33,7 +33,7 @@ async function mainprogram(){
         case 'Roles':
             theRolesMenu()
             break;
-        case "Departments Menu":
+        case "Departments":
             theDepartmentMenu();
             break;
         default:
