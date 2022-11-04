@@ -48,7 +48,7 @@ async function theEmployeeMenu() {
         type: "list",
         name: "action",
         message: "What do you want to do in this menu?",
-        choices: ["View All Employees", "View Employees By Manager", "Add Employee", "Delete Employee", "Go Back"]
+        choices: ["View All Employees", "View Employees By Manager", "Add Employee", "Delete Employee", "Update Employee Role", "Go Back"]
     })
 
     switch (response.action) {
@@ -63,6 +63,9 @@ async function theEmployeeMenu() {
             break;
         case "Delete Employee":
             deleteAnEmployee();
+            break;
+        case "Update Employee Role"
+            empUpRole();
             break;
         default:
             mainprogram();
@@ -235,6 +238,42 @@ async function deleteAnEmployee() {
         });
     })
 }
+
+function empUpRole() {
+    connection.query("SELECT * FROM employees", (err, res) => {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "Which employee's role would you like to update?",
+                name: "whichemp",
+                choices: res.map(res => res.id + " " + res.first_name + " " + res.last_name)
+            }
+        ]).then(employee => {
+            let empId = employees.id
+    
+            connection.query("SELECT * FROM roles", (err, res) => {
+                if (err) throw err;
+                inquirer.prompt([
+                    {
+                        type: "list",
+                        message: "What is the employee's new role?",
+                        name: "newrole",
+                        choices: res.map(res => res.id + " " + res.title)
+                    }
+                ]).then(newrole => {
+                    let roleId = newrole.id
+                    console.log(employee, newrole)
+                    let query = connection.query("UPDATE employees SET role_id = ? WHERE id = ?",
+                        [roleId, empID],
+                        (err, res) => {
+                            if (err) throw err;
+                        }
+                    );
+                    theEmployeeMenu();
+                });
+            });
+        });
 
 //roles menu funtionality
 async function theRolesMenu() {
