@@ -270,14 +270,15 @@ function empUpRole() {
                     }
                 ]).then(result => {
                     const roleId = result.newrole;
-                    console.log(roleId, empId)
+                    
                         connection.query("UPDATE employees SET role_id = ? WHERE id = ?",
                         [roleId, empId],
                         (err, res) => {
                             if (err) throw err;
+                            console.log('Role updated successfully')
                         }
                     );
-                    theEmployeeMenu();
+                    viewAllTheEmployees()
                 });
             });
         });
