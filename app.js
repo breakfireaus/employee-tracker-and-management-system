@@ -242,7 +242,7 @@ async function theRolesMenu() {
         type: "list",
         name: "action",
         message: "What would you like to do?",
-        choices: ["View all Roles", "Add a Role", "Delete a Role", "Go Back"]
+        choices: ["View all Roles", "Add a Role", "Delete a Role", "Go back to previous menu"]
     })
 
     switch (response.action) {
@@ -330,7 +330,7 @@ async function theDepartmentMenu() {
         type: "list",
         name: "action",
         message: "What would you like to do?",
-        choices: ["View All Departments", "Add a Department", "Delete a Department", "Go Back to previous menu"]
+        choices: ["View All Departments", "Add a Department", "Delete a Department", "Go back to previous menu"]
     })
 
     switch (response.action) {
@@ -350,7 +350,7 @@ async function theDepartmentMenu() {
 }
 
 function viewAllDepartments() {
-    connection.query("SELECT name AS Departments FROM departments;", function (err, res) {
+    connection.query("SELECT department_name AS Departments FROM departments;", function (err, res) {
         console.table(res);
         theDepartmentMenu();
     })
@@ -364,7 +364,7 @@ async function addADepartment() {
     });
 
     if (response.department) {
-        connection.query(`INSERT INTO departments (name) VALUES ('${response.department}');`, function (err, res) {
+        connection.query(`INSERT INTO departments (department_name) VALUES ('${response.department}');`, function (err, res) {
             if (err) throw err;
             console.log(`${response.department} Department successfully added`);
             theDepartmentMenu();
@@ -377,9 +377,9 @@ async function addADepartment() {
 }
 
 async function deleteADepartment() {
-    connection.query("SELECT name FROM departments;", async function (err, res) {
+    connection.query("SELECT department_name FROM departments;", async function (err, res) {
         if (err) throw err;
-        const departments = res.map(a => a.name);
+        const departments = res.map(a => a.department_name);
 
         const response = await inquirer.prompt({
             type: "list",
@@ -388,7 +388,7 @@ async function deleteADepartment() {
             choices: departments
         })
 
-        connection.query(`DELETE FROM departments WHERE name = '${response.department}';`, function (err2, res2) {
+        connection.query(`DELETE FROM departments WHERE department_name = '${response.department}';`, function (err2, res2) {
             if (err2) throw err2;
             console.log("Department successfully deleted.")
             theDepartmentMenu();
