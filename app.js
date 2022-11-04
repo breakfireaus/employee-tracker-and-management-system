@@ -81,7 +81,7 @@ async function theEmployeeMenu() {
 
 function viewAllTheEmployees() {
   connection.query(
-    `SELECT employees.first_name AS First_Name, employees.last_name AS Last_Name, roles.title AS Role, departments.id AS department_id, roles.salary As Salary, CONCAT(managers.first_name, " ", managers.last_name) AS Manager FROM employees
+    `SELECT employees.first_name AS First_Name, employees.last_name AS Last_Name, roles.title AS Role, departments.department_name AS Department, roles.salary As Salary, CONCAT(managers.first_name, " ", managers.last_name) AS Manager FROM employees
         LEFT JOIN roles ON employees.role_id = roles.id
         LEFT JOIN departments ON roles.department_id = departments.id
         LEFT JOIN employees AS managers ON employees.manager_id = managers.id`,
@@ -119,7 +119,7 @@ async function viewTheEmployeesByManager() {
       }
 
       connection.query(
-        `SELECT employees.first_name AS First_Name, employees.last_name AS Last_Name, roles.title AS Role, departments.id AS department_id, roles.salary As Salary, CONCAT(managers.first_name, " ", managers.last_name) AS Manager FROM employees
+        `SELECT employees.first_name AS First_Name, employees.last_name AS Last_Name, roles.title AS Role, departments.department_name AS Department, roles.salary As Salary, CONCAT(managers.first_name, " ", managers.last_name) AS Manager FROM employees
                 LEFT JOIN roles ON employees.role_id = roles.id
                 LEFT JOIN departments ON roles.department_id = departments.id
                 LEFT JOIN employees AS managers ON employees.manager_id = managers.id
