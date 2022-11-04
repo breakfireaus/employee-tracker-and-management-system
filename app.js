@@ -265,7 +265,7 @@ function empUpRole() {
                     let roleId = newrole.id
                     console.log(employee, newrole)
                     let query = connection.query("UPDATE employees SET role_id = ? WHERE id = ?",
-                        [roles.id, employees.id],
+                        [empId, roleId],
                         (err, res) => {
                             if (err) throw err;
                         }
