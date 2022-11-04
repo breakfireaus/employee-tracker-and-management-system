@@ -247,10 +247,14 @@ function empUpRole() {
                 type: "list",
                 message: "Which employee's role would you like to update?",
                 name: "whichemp",
-                choices: res.map(res => res.id + " " + res.first_name + " " + res.last_name)
+                choices: res.map(res => ({
+                    value: res.id,
+                    name: res.id + " " + res.first_name + " " + res.last_name
+                }))
             }
-        ]).then(employee => {
-            let empId = employee.id
+        ]).then(result => {
+           
+            const empId = result.whichemp;
     
             connection.query("SELECT * FROM roles", (err, res) => {
                 if (err) throw err;
@@ -259,13 +263,16 @@ function empUpRole() {
                         type: "list",
                         message: "What is the employee's new role?",
                         name: "newrole",
-                        choices: res.map(res => res.id + " " + res.title)
+                        choices: res.map(res => ({
+                            value: res.id,
+                            name: res.id + " " + res.title
+                        }))
                     }
-                ]).then(newrole => {
-                    let roleId = newrole.id
-                    console.log(employee, newrole)
+                ]).then(result => {
+                    const roleId = result.newrole;
+                    console.log(roleId, empId)
                         connection.query("UPDATE employees SET role_id = ? WHERE id = ?",
-                        [empId, roleId],
+                        [roleId, empId],
                         (err, res) => {
                             if (err) throw err;
                         }
