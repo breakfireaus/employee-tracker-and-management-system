@@ -242,7 +242,7 @@ async function theRolesMenu() {
         type: "list",
         name: "action",
         message: "What would you like to do?",
-        choices: ["View Roles", "Add Role", "Delete Role", "Go Back"]
+        choices: ["View all Roles", "Add a Role", "Delete a Role", "Go Back"]
     })
 
     switch (response.action) {
