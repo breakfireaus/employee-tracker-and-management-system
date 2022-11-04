@@ -272,8 +272,8 @@ function viewAllRoles() {
 function addARole() {
     connection.query("SELECT * FROM departments", async function (err, res) {
         if (err) throw err;
-        const departments = res.map(a => a.name);
-
+        const departments = res.map(a => a.department_name);
+        // console.log(departments);
         const response = await inquirer.prompt([{
             type: "list",
             name: "department",
@@ -330,11 +330,11 @@ async function theDepartmentMenu() {
         type: "list",
         name: "action",
         message: "What would you like to do?",
-        choices: ["View All Departments", "Add Department", "Delete Department", "Go Back to previous menu"]
+        choices: ["View All Departments", "Add a Department", "Delete a Department", "Go Back to previous menu"]
     })
 
     switch (response.action) {
-        case "View Departments":
+        case "View All Departments":
             viewAllDepartments();
             break;
         case "Add a Department":
