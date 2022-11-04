@@ -64,7 +64,7 @@ async function theEmployeeMenu() {
         case "Delete Employee":
             deleteAnEmployee();
             break;
-        case "Update Employee Role"
+        case "Update Employee Role":
             empUpRole();
             break;
         default:
@@ -250,7 +250,7 @@ function empUpRole() {
                 choices: res.map(res => res.id + " " + res.first_name + " " + res.last_name)
             }
         ]).then(employee => {
-            let empId = employees.id
+            let empId = employee.id
     
             connection.query("SELECT * FROM roles", (err, res) => {
                 if (err) throw err;
@@ -265,7 +265,7 @@ function empUpRole() {
                     let roleId = newrole.id
                     console.log(employee, newrole)
                     let query = connection.query("UPDATE employees SET role_id = ? WHERE id = ?",
-                        [roleId, empID],
+                        [roles.id, employees.id],
                         (err, res) => {
                             if (err) throw err;
                         }
@@ -274,6 +274,8 @@ function empUpRole() {
                 });
             });
         });
+    })
+}
 
 //roles menu funtionality
 async function theRolesMenu() {
