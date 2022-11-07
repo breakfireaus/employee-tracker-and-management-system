@@ -336,7 +336,7 @@ async function theRolesMenu() {
 
 function viewAllRoles() {
   connection.query(
-    'SELECT roles.title AS Role, departments.id AS department_id FROM roles LEFT JOIN departments on roles.department_id = departments.id;',
+    'SELECT roles.title AS Role, departments.department_name as Department FROM roles LEFT JOIN departments on roles.department_id = departments.id;',
     function (err, res) {
       console.table(res);
       theRolesMenu();
@@ -375,7 +375,7 @@ function addARole() {
       function (err2, res2) {
         if (err2) throw err2;
         console.log(`${response.role} role has been created successfully.`);
-        theRolesMenu();
+        viewAllRoles();
       }
     );
   });
@@ -400,7 +400,7 @@ async function deleteARole() {
       function (err2, res2) {
         if (err2) throw err2;
         console.log(`${response.role} role was deleted successfully.`);
-        theRolesMenu();
+        viewAllRoles();
       }
     );
   });
@@ -459,7 +459,7 @@ async function addADepartment() {
       function (err, res) {
         if (err) throw err;
         console.log(`${response.department} Department successfully added`);
-        theDepartmentMenu();
+        viewAllDepartments();
       }
     );
   } else {
@@ -487,7 +487,7 @@ async function deleteADepartment() {
         function (err2, res2) {
           if (err2) throw err2;
           console.log('Department successfully deleted.');
-          theDepartmentMenu();
+          viewAllDepartments();
         }
       );
     }
