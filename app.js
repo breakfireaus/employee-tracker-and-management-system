@@ -51,8 +51,8 @@ async function theEmployeeMenu() {
       'View All Employees',
       'View Employees By Manager',
       'Add Employee',
-      'Delete Employee',
       'Update Employee Role',
+      'Delete Employee',
       'Go Back',
     ],
   });
@@ -67,12 +67,13 @@ async function theEmployeeMenu() {
     case 'Add Employee':
       addAnEmployee();
       break;
-    case 'Delete Employee':
-      deleteAnEmployee();
-      break;
     case 'Update Employee Role':
       empUpRole();
       break;
+    case 'Delete Employee':
+      deleteAnEmployee();
+      break;
+    
     default:
       mainprogram();
       break;
@@ -216,7 +217,7 @@ async function addAnEmployee() {
                 console.log(
                   `${response.first_name} ${response.last_name} successfully added as an employee.`
                 );
-                theEmployeeMenu();
+                viewAllTheEmployees();
               });
             }
           );
@@ -247,7 +248,7 @@ async function deleteAnEmployee() {
         function (err2, res2) {
           if (err2) throw err2;
           console.log(`${response.employee} was successfully deleted.`);
-          theEmployeeMenu();
+          viewAllTheEmployees();
         }
       );
     }

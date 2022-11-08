@@ -6,18 +6,17 @@ Developers frequently are asked by non-developers to create databases that are e
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
+- [Installation and Usage](#installation)
 - [Credits](#credits)
 - [License](#license)
 
-## Installation
+## Installation & Usage
 
-
+This uses the Command line interface so to run the program you need to type in your command prompt 'node app.js'
 
 ## Usage
-- Main Page
-![main page screenshot](assets/images/Screenshot-1.jpg)
+- Video link that shows how to use the program
+- https://drive.google.com/file/d/1eOgylGoJRMcSiPTWR1TK77gd8L41Is1W/view
 
 ## Credits
 
